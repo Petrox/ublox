@@ -1413,10 +1413,10 @@ void AdrUdrProduct::callbackEsfMEAS(const ublox_msgs::EsfMEAS &m) {
 void HpgRefProduct::getRosParams() {
   if (config_on_startup_flag_) {
     if(nav_rate * meas_rate != 1000)
-      ROS_WARN("For HPG Ref devices, nav_rate should be exactly 1 Hz.");
+      ROS_WARN("For HPG Ref devices, nav_rate / rate should be exactly 1 Hz. ( nav_rate / rate != 1 ) ");
 
     if(!getRosUint("tmode3", tmode3_))
-      throw std::runtime_error("Invalid settings: TMODE3 must be set");
+      throw std::runtime_error("Invalid settings: TMODE3 must be set for HPG Reference devices.");
 
     if(tmode3_ == ublox_msgs::CfgTMODE3::FLAGS_MODE_FIXED) {
       if(!nh->getParam("arp/position", arp_position_))
